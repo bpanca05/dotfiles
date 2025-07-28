@@ -1,0 +1,28 @@
+cursor-style-blink = false
+cursor-style = block
+custom-shader = shaders/cursor_blaze.glsl
+custom-shader-animation = always
+#custom-shader = shaders/cursor_smear.glsl
+
+gtk-titlebar = true
+gtk-wide-tabs = false
+# gtk-toolbar-style = flat
+
+mouse-hide-while-typing = true
+
+shell-integration-features = sudo, no-cursor
+
+theme = rose-pine
+
+#title = Ghostty
+
+font-family = HexaMono
+font-size = 16
+font-feature = "-liga, -calt, -dlig"
+
+window-decoration = server
+gtk-single-instance = true
+
+keybind = alt+3=unbind
+keybind = shift+enter=text:\r
+
