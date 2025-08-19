@@ -2,7 +2,7 @@
 # $all is shorthand for $username$hostname$localip$shlvl$singularity$kubernetes$directory$vcsh$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$docker_context$package$cmake$cobol$dart$deno$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nim$nodejs$ocaml$perl$php$pulumi$purescript$python$rlang$red$ruby$rust$scala$swift$terraform$vlang$vagrant$zig$buf$nix_shell$conda$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$status$time$container$shell$character
 
 format = '$all$directory$status'
-right_format = '$memory_usage'
+right_format = '$cmd_duration$memory_usage'
 continuation_prompt = '[∙](bright-black) '
 scan_timeout = 30
 command_timeout = 500
@@ -104,7 +104,7 @@ detect_files = []
 detect_folders = []
 
 [cmd_duration]
-show_milliseconds = true
+show_milliseconds = false
 format = "[$duration](bold yellow) "
 disabled = false
 show_notifications = false
@@ -798,8 +798,8 @@ detect_files = []
 detect_folders = ['.terraform']
 
 [time]
-format = ' at [$time]($style) '
-style = 'bold magenta'
+format = '[$time]($style) '
+style = 'bold yellow'
 use_12hr = true
 disabled = true
 time_format= '%I:%M %p'
