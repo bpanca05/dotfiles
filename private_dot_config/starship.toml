@@ -63,12 +63,12 @@ aliases = {'Rhinelab-Workstation-SGO' = 'Laptop Kantor'}
 
 [character]
 format = '$symbol '
-success_symbol = '[❯](cyan)'
-error_symbol = '[🞭](red)[❯](cyan)'
+success_symbol = '[ ](bold fg:15)'
+error_symbol = '[ ](red)'
 disabled = false
 
 [username]
-format = '(blue)❮ [$user](blue) '
+format = '[ ](bold fg:15) [$user](blue) '
 style_root = 'bold'
 style_user = 'bold'
 show_always = true
@@ -767,8 +767,8 @@ pipestatus_format = '\[$pipestatus\] => [$symbol$common_meaning$signal_name$mayb
 disabled = false
 
 [sudo]
-format = 'as [$symbol]($style)'
-symbol = 'SuperUser '
+format = ' as [$symbol]($style)'
+symbol = 'Superuser '
 style = 'bold red'
 allow_windows = false
 disabled = false
@@ -798,7 +798,7 @@ detect_files = []
 detect_folders = ['.terraform']
 
 [time]
-format = '[$time]($style) '
+format = '[$time]($style)'
 style = 'bold yellow'
 use_12hr = true
 disabled = true
