@@ -15,6 +15,8 @@ KCM.SimpleKCM {
     property alias cfg_useCustomFont: customFontCheckbox.checked
     property alias cfg_customFont: fontDialog.fontChosen
     property alias cfg_volumeStep: volumeStepSpinbox.value
+    property alias cfg_noMediaText: noMediaText.text
+    property alias cfg_showWhenNoMedia: showWhenNoMedia.checked
 
     Kirigami.FormLayout {
         id: form
@@ -37,9 +39,7 @@ KCM.SimpleKCM {
             }
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n(
-                    "The player will be chosen automatically based on the currently playing song." +
-                    "If two or more players are playing at the same time, the widget will choose " +
-                    "the one that started playing first."
+                    "The player will be chosen automatically based on the currently playing song. If two or more players are playing at the same time, the widget will choose the one that started playing first."
                 )
             }
         }
@@ -79,10 +79,7 @@ KCM.SimpleKCM {
 
             Kirigami.ContextualHelpButton {
                 toolTipText: i18n(
-                    "Always display information from the selected player, if it's not running the widget " +
-                    "will be hidden. In the dropdown you can choose between all the players that are currently " +
-                    "running, if you can't find the one you want, open the player appliacation and reload " +
-                    "the list with reload button."
+                    "Always display information from the selected player, if it's not running the widget will be hidden. In the dropdown you can choose between all the players that are currently running, if you can't find the one you want, open the player application and reload the list with reload button."
                 )
             }
         }
@@ -115,6 +112,22 @@ KCM.SimpleKCM {
             text: i18n("%1pt %2", fontDialog.fontChosen.pointSize, fontDialog.fontChosen.family)
             textFormat: Text.PlainText
             font: fontDialog.fontChosen
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("No media found behavior")
+        }
+
+        CheckBox {
+            id:showWhenNoMedia
+            Kirigami.FormData.label: i18n("Show widget when no media found:")
+        }
+
+        TextField {
+            id: noMediaText
+            Kirigami.FormData.label: i18n("Text displayed when no media found:")
+            enabled: showWhenNoMedia.checked
         }
 
         Kirigami.Separator {
