@@ -59,7 +59,7 @@ trim_at = '.'
 format = 'at [$hostname](magenta) '
 style = 'bold'
 disabled = false
-aliases = {'Rhinelab-Workstation-SGO' = 'Laptop Kantor'}
+aliases = {'RhineLab-Workstation-SGO' = 'Laptop Kantor'}
 
 [character]
 format = '$symbol '
@@ -858,7 +858,7 @@ when = true
 [custom.time]
 format = ', [$output]($style)'
 style = 'bold purple'
-command = ''' command /bin/date +"%H:%M%p" '''
+command = ''' command /bin/date +"%I:%M%p" '''
 disabled = false
 when = true
 
