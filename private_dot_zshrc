@@ -1,4 +1,3 @@
-
 # -----------------
 # Zsh configuration
 # -----------------
@@ -19,6 +18,9 @@ bindkey -e
 
 # Prompt for spelling correction of commands.
 setopt CORRECT
+
+# Enable append create option
+setopt appendcreate
 
 # Customize spelling correction prompt.
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
@@ -65,6 +67,9 @@ source ${ZIM_HOME}/init.zsh
 #
 
 zmodload -F zsh/terminfo +p:terminfo
+zmodload zsh/zprof
+
+
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
 for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
@@ -81,8 +86,9 @@ unset zle_bracketed_paste
   # ------------------------------
 
 ## Zsh Defer
-source ${ZIM_HOME}/modules/zsh-defer/zsh-defer.plugin.zsh
-zsh-defer pyenv init - zsh
+#source ${ZIM_HOME}/modules/zsh-defer/zsh-defer.plugin.zsh
+#zsh-defer pyenv init - zsh
+
 
 ## Starship Theme init
 eval "$(starship init zsh)"
@@ -101,8 +107,8 @@ alias lad="lazydocker"
 # alias openmpt="openmpt123 --ui --repeat -1 --gain 3 --message --filter 2"
 # alias cz="chezmoi"
 # alias tr="trans"
-# alias windows-up="docker compose --progress=quiet --file ~/.config/winapps/compose.yaml up -d"
-# alias windows-down="docker compose --progress=quiet --file ~/.config/winapps/compose.yaml down"
+ alias windows-up="docker compose --progress=quiet --file ~/.config/winapps/compose.yaml up -d"
+ alias windows-down="docker compose --progress=quiet --file ~/.config/winapps/compose.yaml down"
 # alias sudo='sudo-rs' &&  compdef sudo-rs=sudo
 # alias lamp="cd ~/Github-Stuff/docker-compose-lamp/"
 # alias start-compose="sudo systemctl start docker; docker-compose up -d"
@@ -119,9 +125,9 @@ ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c30,)"
 bindkey "^[[C" forward-word
 
 ## Exports
-# export PATH=$PATH:~/.local/bin
-# export PATH=$PATH:$HOME/.spicetify
-# export PATH="$HOME/.cargo/bin/:$PATH"
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:$HOME/.spicetify
+export PATH="$HOME/.cargo/bin:$PATH"
 # [ "$TERM" = "xterm-kitty" ] && unset TERM && export TERM=xterm-256color
 # export QT_SCALE_FACTOR_ROUNDING_POLICY=Round
 # export DEFAULT_USER=$USER
@@ -134,3 +140,41 @@ bindkey "^[[C" forward-word
 # export DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1
 # export AMD_VULKAN_ICD=RADV
 # export KPIPEWIRE_FORCE_ENCODER=libx264
+
+# set count of Ctrl-D presses
+typeset -g IGNOREEOF_TIMES=2
+
+# enable ignore_eof so immediate EOF doesn’t exit
+setopt ignore_eof
+
+# initialize remaining count
+typeset -g __ignoreeof_remaining
+
+bash_ctrl_d() {
+  if [[ $CURSOR -eq 0 && -z $BUFFER ]]; then
+    # initialize on first relevant Ctrl-D (or reset when needed)
+    if [[ -z $__ignoreeof_remaining ]]; then
+      __ignoreeof_remaining=$IGNOREEOF_TIMES
+    fi
+
+    (( __ignoreeof_remaining-- ))
+
+    if (( __ignoreeof_remaining <= 0 )); then
+      exit
+    else
+      # show warning
+      echo "Use \"exit\" to leave the shell. (Press Ctrl-D $(( __ignoreeof_remaining )) more times to exit.)"
+    fi
+  else
+    # standard behavior
+    zle delete-char-or-list
+  fi
+}
+
+precmd() {
+  unset __ignoreeof_remaining
+}
+
+
+zle -N bash_ctrl_d
+bindkey '^D' bash_ctrl_d
