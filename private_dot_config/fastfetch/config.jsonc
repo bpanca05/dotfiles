@@ -1,8 +1,8 @@
 {
-  "logo" : {
-      // "source": "~/.config/fastfetch/copland.txt",
-      "source": "~/.config/fastfetch/rhinelab.txt",
-      "type": "file-raw"
+  "logo": {
+    // "source": "~/.config/fastfetch/copland.txt",
+    "source": "~/.config/fastfetch/rhinelab.txt",
+    "type": "file-raw"
   },
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "modules": [
@@ -14,44 +14,53 @@
     "separator",
     {
       "type": "os",
+      "key": "Operating System",
       "format": "{pretty-name}"
     },
-    "host",
-    "kernel",
     {
-      "type": "shell",
-      "format": "{exe-path}"
+      "type" : "host",
+      "key": "Machine",
+      "format" : "{version}"
     },
+    "kernel",
+    // {
+    //   "type": "shell",
+    //   "format": "{exe-path}",
+    // },
+    "separator",
+    "de",
     "wm",
+    "separator",
+    "uptime",
     "separator",
     {
       "type": "initsystem",
       "format": "{name}"
     },
-    "uptime",
     {
-      "type": "custom",
-      "key": "Font",
-      "format": "HexaMono"
+    "type": "terminalfont",
+    "key": "Font",
+    "format": "{name}"
     },
     "separator",
-//    {
-//      "type": "colors",
-//      "symbol": "block",
-//      "block": {
-//        "range": [1,7],
-//        "width": 4
-//      }
-//    },
-//    "break",
+    //    {
+    //      "type": "colors",
+    //      "symbol": "block",
+    //      "block": {
+    //        "range": [1,7],
+    //        "width": 4
+    //      }
+    //    },
+    //    "break",
     {
       "type": "custom",
       "key": " ",
-      "format": "おはよう、ドクター!"
+      "format": "Simple by Default, Powerful when Needed"
+      // "format": "おはよう、ドクター!",
 
       // "type" : "command"
       // "text": "bash ~/.config/fastfetch/text",
-    },
-    "separator"
+    }
+    // "separator"
   ]
 }
